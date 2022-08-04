@@ -1,10 +1,13 @@
 import express from 'express'
+import { API } from './app/globals.js'
+import mongo from './app/configs/database.config.js'
 
 const app = express()
 app.use(express.json())
+mongo()
 
 const serviceName = 'Streams Tracker'
-const port = 3000
+const port = API.PORT
 
 /** health check/server ping route */
 app.get('/', (_, res) => res.send('Streams Tracker Service'))
