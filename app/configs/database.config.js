@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { API } from '../globals.js'
+import logger from '../utilities/logger.js'
 
 export default function connect () {
   mongoose
@@ -8,11 +9,11 @@ export default function connect () {
       useUnifiedTopology: true
     })
     .then(() => {
-      console.log('Successfully connected to database')
+      logger.log('Successfully connected to database')
     })
     .catch((error) => {
-      console.log('DB Connection failed. exiting now...')
-      console.error(error)
-      process.exit(1)
+      logger.log('DB Connection failed. exiting now...')
+      logger.error(error)
+      logger.exit(1)
     })
 }
