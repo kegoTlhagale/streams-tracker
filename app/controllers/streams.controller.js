@@ -26,7 +26,6 @@ const track = async (req, res) => {
   logger.log(`${streamid} The payload is valid.`)
   logger.log(`${streamid} Check if the stream already exists`)
   Streams.findOne({ streamid }, (error, existingStream) => {
-    console.log('1')
     if (error) {
       logger.error(`${streamid}something went wrong while searching for the stream. \n`, error)
       return res.status(HTTP_CODES.SERVER_ERROR)
@@ -89,10 +88,6 @@ const createStream = (res, streamid, streamsCounterUpdate) => {
 }
 
 const updateCurrentStreamsCounter = (res, existingStream, streamsCounterUpdate) => {
-
-  console.log('existingStream', existingStream)
-  console.log('streamsCounterUpdate', streamsCounterUpdate)
-
   const { streamsCounter, streamid } = existingStream
   logger.log(`${streamid} Checking if the number of concurrent streams has not exceeded 3`)
 
@@ -121,10 +116,6 @@ const updateCurrentStreamsCounter = (res, existingStream, streamsCounterUpdate) 
       if (newStreamsCounter < 0) {
         newStreamsCounter = 0
       }
-
-      console.log('existingStream.streamsCounter', existingStream.streamsCounter)
-      console.log('streamsCounter', streamsCounter)
-      console.log('newStreamsCounter', newStreamsCounter)
       
        // update the counter in the db
       existingStream.updateOne({ streamsCounter: newStreamsCounter },(error, updatedStream) => {
@@ -138,7 +129,6 @@ const updateCurrentStreamsCounter = (res, existingStream, streamsCounterUpdate) 
           })
         }
 
-        console.log('updatedStream', updatedStream)
         let limitExceed = false
         if (updatedStream.streamsCounter >= 3) {
           limitExceed = true
