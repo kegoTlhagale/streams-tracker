@@ -1,5 +1,5 @@
 # streams-tracker
-A service that prevents a user from watching more than 3 video streams concurrently
+A service that prevents a user from watching more than 3 video streams concurrently.
 
 ### Dependencies
 
@@ -33,3 +33,5 @@ docker build . -t streams-tracker
 ```
 docker run -p 8080:8080 streams-tracker
 ```
+
+Swagger Documentation url: http://localhost:8080/api-docs (the port could be different depending)
